@@ -1,0 +1,6 @@
+@BigDataApı_HostAddress = http://localhost:5074
+
+GET {{BigDataApı_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
