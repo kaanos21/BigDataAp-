@@ -91,7 +91,7 @@ namespace BigDataApı.Repositories.Concrete
                 {
                     var daysSinceLastOrder = x.LastOrderDate.HasValue ? (DateTime.Now - x.LastOrderDate.Value).TotalDays : double.MaxValue;
 
-
+                    double
                 })
                 .ToList();
             throw new NotImplementedException();
