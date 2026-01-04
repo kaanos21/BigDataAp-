@@ -12,5 +12,6 @@
         public string CustomerCity { get; set; }
         public string CustomerDistrict { get; set; }
         public string CUstomerAddress { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }
