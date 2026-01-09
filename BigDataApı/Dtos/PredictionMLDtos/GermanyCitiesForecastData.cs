@@ -1,4 +1,4 @@
-﻿namespace BigDataApı.Dtos.PredictionDtos
+﻿namespace BigDataApı.Dtos.PredictionMLDtos
 {
     public class GermanyCitiesForecastData
     {

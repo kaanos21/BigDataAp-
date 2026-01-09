@@ -73,11 +73,11 @@ namespace BigDataApı.Repositories.Concrete
             });
         }
 
-        public Task<object> GetItalyLoyaltyScoreWithOutML()
+        public Task<object> GetItalyLoyaltyScoreItalyWithOutML()
         {
             var loyaltScores = _context.Customers
                 .Include(o => o.Orders)
-                .ThenInclude(o => o.Customer)
+                .ThenInclude(o => o.Product)
                 .Where(c => c.CustomerCountry == "İtalya")
                 .Select(c => new
                 {
@@ -91,10 +91,49 @@ namespace BigDataApı.Repositories.Concrete
                 {
                     var daysSinceLastOrder = x.LastOrderDate.HasValue ? (DateTime.Now - x.LastOrderDate.Value).TotalDays : double.MaxValue;
 
-                    double
+                    double recencryScore = daysSinceLastOrder switch
+                    {
+                        <= 30 => 100,
+                        <= 90 => 80,
+                        <= 180 => 50,
+                        <= 365 => 40,
+                        _ => 10
+                    };
+
+                    double frequencyScore = x.TotalOrders switch
+                    {
+                        >= 20 => 100,
+                        >= 10 => 80,
+                        >= 5 => 60,
+                        >= 2 => 40,
+                        >= 1 => 20,
+                        _ => 10
+                    };
+
+                    double monetaryScore = x.TotalSpent switch
+                    {
+                        >= 5000 => 100,
+                        >= 2000 => 80,
+                        >= 1000 => 60,
+                        >= 500 => 40,
+                        >= 100 => 20,
+                        _ => 10
+                    };
+
+                    double loyaltyScore = (recencryScore * 0.4) + (frequencyScore * 0.3) + (monetaryScore * 0.3);
+
+                    return new
+                    {
+                       CustomerName= x.CustomerName,
+                       TotalOrders=x.TotalOrders,
+                       TotalSpent=Math.Round(x.TotalSpent,2),
+                       LastOrderDate=x.LastOrderDate,
+                       LoyaltyScore = Math.Round(loyaltyScore, 2)
+                    };
                 })
+                .OrderByDescending(x => x.LoyaltyScore)
                 .ToList();
-            throw new NotImplementedException();
+            return Task.FromResult<object>(loyaltScores);
         }
 
         public async Task<object> GetOrdersPerCity()

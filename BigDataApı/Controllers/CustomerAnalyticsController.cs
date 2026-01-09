@@ -1,4 +1,4 @@
-﻿using BigDataApı.ML.NET.Abstract;
+﻿using BigDataApı.Repositories.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BigDataApı.Controllers
@@ -39,6 +39,18 @@ namespace BigDataApı.Controllers
         public async Task<IActionResult> GetTotalDeactiveCustomerIn6Month()
         {
             var result = await _customerAnalyticsService.GetTotalDeactiveCustomerIn6Month();
+            return Ok(result);
+        }
+        [HttpGet("CustomerDetailAIAnalysisByLastOrderOldMethod/{id}")]
+        public async Task<IActionResult> GetCustomerDetailAIAnalysisByLastOrder(int id)
+        {
+            var result = await _customerAnalyticsService.GetCustomerDetailAlAnalysisByLastOrderOldMethod(id);
+            return Ok(result);
+        }
+        [HttpGet("CustomerDetailAIAnalysisByLastOrderModernMethod/{id}")]
+        public async Task<IActionResult> GetCustomerDetailAIAnalysisByLastOrderModernMethod(int id)
+        {
+            var result = await _customerAnalyticsService.GetCustomerDetailAlAnalysisByLastOrderModernMethod(id);
             return Ok(result);
         }
     }

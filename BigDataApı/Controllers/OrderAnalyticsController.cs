@@ -26,5 +26,11 @@ namespace BigDataApı.Controllers
             var result = await _orderAnalyticsService.GetOrdersPerCity();
             return Ok(result);
         }
+        [HttpGet("GetItalyLoyaltyScoreItalyWithOutML")]
+        public async Task<IActionResult> GetItalyLoyaltyScoreWithOutML()
+        {
+            var result = await _orderAnalyticsService.GetItalyLoyaltyScoreItalyWithOutML();
+            return Ok(result);
+        }
     }
 }

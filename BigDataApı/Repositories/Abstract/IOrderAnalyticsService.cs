@@ -6,6 +6,6 @@
 
         Task<object> GetOrdersPerCity();
 
-        Task<object> GetItalyLoyaltyScoreWithOutML();
+        Task<object> GetItalyLoyaltyScoreItalyWithOutML();
     }
 }

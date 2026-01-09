@@ -1,5 +1,5 @@
 ﻿using BigDataApı.Context;
-using BigDataApı.Dtos.PredictionDtos;
+using BigDataApı.Dtos.PredictionMLDtos;
 using BigDataApı.ML.NET.Abstract;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.ML;
